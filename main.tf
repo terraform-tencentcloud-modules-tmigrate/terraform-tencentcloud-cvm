@@ -1,8 +1,10 @@
-
+locals {
+  create_instance = true
+}
 resource "tencentcloud_instance" "instance" {
-  count = var.number_of_instances
+  count = local.create_instance ? 1 : 0
 
-  instance_name     = var.number_of_instances > 1 ? "${var.instance_name}-${count.index}" : var.instance_name
+  instance_name     = var.instance_name
   availability_zone = var.availability_zone
   image_id          = var.image_id
   instance_type     = var.instance_type
@@ -15,7 +17,7 @@ resource "tencentcloud_instance" "instance" {
   internet_max_bandwidth_out = var.internet_max_bandwidth_out
   vpc_id                     = var.vpc_id
   subnet_id                  = var.subnet_id
-  private_ip                 = length(var.private_ip) > count.index ? var.private_ip[count.index] : null
+  private_ip                 = var.private_ip
 
   key_ids                 = var.key_ids
   orderly_security_groups = var.security_group_ids
@@ -30,11 +32,16 @@ resource "tencentcloud_instance" "instance" {
 
   placement_group_id = var.placement_group_id
 
-  data_disks {
-    data_disk_type = var.data_disk_type
-    data_disk_size = var.data_disk_size
-    encrypt        = var.data_disk_encryption
+  dynamic "data_disks" {
+    for_each = range(var.data_disk_count)
+    content {
+      data_disk_type = var.data_disk_type
+      data_disk_size = var.data_disk_size
+      encrypt        = var.data_disk_encryption
+    }
   }
 
   tags = var.tags
 }
+
+

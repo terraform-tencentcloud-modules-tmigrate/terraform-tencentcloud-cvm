@@ -10,3 +10,7 @@ output "instance_status" {
 output "public_ip" {
   value = module.cvm.public_ip
 }
+
+output "private_ip" {
+  value = module.cvm.private_ip
+}

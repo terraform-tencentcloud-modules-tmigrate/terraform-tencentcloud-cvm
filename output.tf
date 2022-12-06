@@ -5,15 +5,15 @@ output "instance_id" {
 
 output "instance_status" {
   description = "The states of instance."
-  value       = tencentcloud_instance.instance.*.instance_status
+  value       = local.create_instance ? tencentcloud_instance.instance[0].instance_status : ""
 }
 
 output "public_ip" {
   description = "The public ips of instances."
-  value       = tencentcloud_instance.instance.*.public_ip
+  value       = local.create_instance ? tencentcloud_instance.instance.*.public_ip : ""
 }
 
 output "private_ip" {
   description = "The private ips of instances."
-  value       = tencentcloud_instance.instance.*.private_ip
+  value       = local.create_instance ? tencentcloud_instance.instance.*.private_ip : ""
 }

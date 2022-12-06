@@ -7,16 +7,10 @@ variable "project_id" {
 }
 
 #cvm
-variable "number_of_instances" {
-  type        = number
-  description = "the number of instances to create."
-  default     = 1
-}
-
 variable "instance_name" {
   description = "the name of instance to create."
   type        = string
-  default     = "cvm"
+  default     = null
 }
 
 variable "availability_zone" {
@@ -55,15 +49,15 @@ variable "allocate_public_ip" {
 }
 
 variable "vpc_id" {
-  description = "The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set."
+  description = "The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set or the default vpc will be used."
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "subnet_id" {
   type        = string
-  default     = ""
-  description = "The ID of a VPC subnet. If you want to create instances in a VPC network, this parameter must be set."
+  default     = null
+  description = "The ID of a VPC subnet. If you want to create instances in a VPC network, this parameter must be set or the default subnet will be used."
 }
 
 variable "internet_max_bandwidth_out" {
@@ -83,6 +77,18 @@ variable "security_group_ids" {
   description = "A list of orderly security group IDs to associate with."
 }
 
+variable "cbs_block_device" {
+  description = "Additional CBS block devices to attach to the instance"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "data_disk_count" {
+  type        = number
+  default     = 0
+  description = "Data disk count, CVM module attach disk by CBS. pass `0` will not create CBS instance."
+}
+
 variable "data_disk_type" {
   type        = string
   default     = "CLOUD_PREMIUM"
@@ -91,7 +97,7 @@ variable "data_disk_type" {
 
 variable "data_disk_size" {
   type        = number
-  default     = 0
+  default     = null
   description = " Size of the data disk, and unit is GB."
 }
 
@@ -108,9 +114,9 @@ variable "tags" {
 }
 
 variable "private_ip" {
-  description = "Private IP address to associate with the instance in a VPC"
-  type        = list(string)
-  default     = []
+  description = "Private IP address to associate with the instance in a VPC, private IP must be an IP within the subnet specified by subnet_id。"
+  type        = string
+  default     = null
 }
 
 

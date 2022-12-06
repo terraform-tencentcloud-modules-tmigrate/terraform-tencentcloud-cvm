@@ -27,4 +27,7 @@ module "cvm" {
   availability_zone = module.vpc.availability_zones[0]
   instance_type     = data.tencentcloud_instance_types.c2m2.instance_types[0].instance_type
   image_id          = data.tencentcloud_images.tencentos.images[0].image_id
+
+  data_disk_count = 2
+  data_disk_size  = 10
 }
