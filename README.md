@@ -32,10 +32,6 @@ module "cvm" {
   allocate_public_ip = true
 }
 ```
-- create multi instance
-```hcl
-number_of_instances = 2
-```
 
 ## Inputs
 
