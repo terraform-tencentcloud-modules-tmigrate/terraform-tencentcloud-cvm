@@ -73,9 +73,6 @@ resource "tencentcloud_eni_attachment" "eni" {
 }
 
 resource "tencentcloud_placement_group" "this" {
-  lifecycle {
-    ignore_changes = [name]
-  }
   count = local.create_placement_group ? 1 : 0
   name  = var.placement_group_name
   type  = var.placement_group_type
