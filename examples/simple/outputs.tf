@@ -14,3 +14,7 @@ output "public_ip" {
 output "private_ip" {
   value = module.cvm.private_ip
 }
+
+output "placement_group_id" {
+  value = module.cvm.placement_group_id
+}

@@ -71,40 +71,29 @@ variable "key_ids" {
   type        = list(string)
   default     = null
 }
+
 variable "security_group_ids" {
   type        = list(string)
   default     = null
   description = "A list of orderly security group IDs to associate with."
 }
 
-variable "cbs_block_device" {
-  description = "Additional CBS block devices to attach to the instance"
+variable "cbs_block_devices" {
+  description = "Additional CBS block devices to attach to the instance. see resource tencentcloud_cbs_storage."
   type        = list(map(string))
   default     = []
 }
 
-variable "data_disk_count" {
-  type        = number
-  default     = 0
-  description = "Data disk count, CVM module attach disk by CBS. pass `0` will not create CBS instance."
+variable "cbs_block_device_ids" {
+  description = "Attach exist CBS block devices to the instance by id.  see resource tencentcloud_cbs_storage."
+  type        = list(string)
+  default     = []
 }
 
-variable "data_disk_type" {
-  type        = string
-  default     = "CLOUD_PREMIUM"
-  description = "Data disk type. For more information about limits on different data disk types, see Storage Overview. Valid values: LOCAL_BASIC: local disk, LOCAL_SSD: local SSD disk, LOCAL_NVME: local NVME disk, specified in the InstanceType, LOCAL_PRO: local HDD disk, specified in the InstanceType, CLOUD_BASIC: HDD cloud disk, CLOUD_PREMIUM: Premium Cloud Storage, CLOUD_SSD: SSD, CLOUD_HSSD: Enhanced SSD, CLOUD_TSSD: Tremendous SSD, CLOUD_BSSD: Balanced SSD."
-}
-
-variable "data_disk_size" {
-  type        = number
-  default     = null
-  description = " Size of the data disk, and unit is GB."
-}
-
-variable "data_disk_encryption" {
-  type        = bool
-  default     = false
-  description = "Decides whether the disk is encrypted. Default is false."
+variable "cbs_tags" {
+  description = "Additional tags to assign to cbs resource."
+  type        = map(string)
+  default     = {}
 }
 
 variable "tags" {
@@ -165,7 +154,26 @@ variable "cdh_host_id" {
 }
 
 variable "placement_group_id" {
-  description = "The Placement Group Id to start the instance in"
+  description = "The Placement Group Id to start the instance in, see tencentcloud_placement_group."
   type        = string
-  default     = null
+  default     = ""
+}
+
+variable "placement_group_name" {
+  description = "The Placement group name to start the instance in, see tencentcloud_placement_group. will ignore if placement_group_id passed."
+  type        = string
+  default     = ""
+}
+
+variable "placement_group_type" {
+  description = "The Placement Group type to start the instance in, see tencentcloud_placement_group. will ignore if placement_group_id passed."
+  type        = string
+  default     = "HOST"
+}
+
+
+variable "eni_ids" {
+  description = "A list of eni_id to bind with the instance. see resource tencentcloud_eni."
+  type        = list(string)
+  default     = []
 }
