@@ -24,7 +24,7 @@ data "tencentcloud_images" "tencentos" {
 }
 
 module "cvm" {
-  source            = "terraform-tencentcloud-modules/vpc/tencentcloud"
+  source            = "terraform-tencentcloud-modules/cvm/tencentcloud"
   availability_zone = "ap-hongkong-1"
   instance_type     = data.tencentcloud_instance_types.c2m2.instance_types[0].instance_type
   image_id          = data.tencentcloud_images.tencentos.images[0].image_id
