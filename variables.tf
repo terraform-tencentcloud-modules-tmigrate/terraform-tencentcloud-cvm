@@ -72,6 +72,12 @@ variable "key_ids" {
   default     = null
 }
 
+variable "password" {
+  description = "Login password of the instance. For Linux instances, the password must include 8-30 characters, and contain at least two of the following character sets: [a-z], [A-Z], [0-9] and [()`~!@#$%^&*-+="
+  type        = string
+  default     = null
+}
+
 variable "security_group_ids" {
   type        = list(string)
   default     = null
