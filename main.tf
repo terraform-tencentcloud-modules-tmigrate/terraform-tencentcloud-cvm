@@ -22,6 +22,7 @@ resource "tencentcloud_instance" "instance" {
   private_ip                 = var.private_ip
 
   key_ids                 = var.key_ids
+  password                = var.password
   orderly_security_groups = var.security_group_ids
   disable_monitor_service = !var.monitoring
   user_data_raw           = var.user_data_raw
