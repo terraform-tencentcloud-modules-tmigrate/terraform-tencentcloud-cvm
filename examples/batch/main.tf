@@ -1,4 +1,4 @@
-module "key-pairs" {
+module "cvms" {
   source = "../../modules/batch"
   #  source = "git::https://github.com/terraform-tencentcloud-modules-tmigrate/terraform-tencentcloud-cvm.git//modules/batch?ref=master"
   cvms = {
