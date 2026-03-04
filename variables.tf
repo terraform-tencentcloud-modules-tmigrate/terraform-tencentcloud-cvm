@@ -13,6 +13,12 @@ variable "instance_name" {
   default     = null
 }
 
+variable "hostname" {
+  description = "the hostname of os."
+  type        = string
+  default     = null
+}
+
 variable "availability_zone" {
   description = "The available zone for the instance.  "
   type        = string
@@ -182,4 +188,21 @@ variable "eni_ids" {
   description = "A list of eni_id to bind with the instance. see resource tencentcloud_eni."
   type        = list(string)
   default     = []
+}
+
+variable "disable_security_service" {
+  type        = bool
+  default     = true
+  description = " Disable enhance service for security, it is enabled by default. When this options is set, security agent won't be installed. Modifying will cause the instance reset."
+}
+#variable "disable_monitor_service" {
+#  type        = bool
+#  default     = true
+#  description = "Disable enhance service for monitor, it is enabled by default. When this options is set, monitor agent won't be installed. Modifying will cause the instance reset."
+#}
+
+variable "disable_automation_service" {
+  description = " (Optional, Bool) Disable enhance service for automation, it is enabled by default. When this options is set, monitor agent won't be installed. Modifying will cause the instance reset."
+  type        = bool
+  default     = false
 }

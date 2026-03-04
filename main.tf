@@ -7,6 +7,7 @@ resource "tencentcloud_instance" "instance" {
   count = local.create_instance ? 1 : 0
 
   instance_name     = var.instance_name
+  hostname          = var.hostname
   availability_zone = var.availability_zone
   image_id          = var.image_id
   instance_type     = var.instance_type
@@ -24,7 +25,6 @@ resource "tencentcloud_instance" "instance" {
   key_ids                 = var.key_ids
   password                = var.password
   orderly_security_groups = var.security_group_ids
-  disable_monitor_service = !var.monitoring
   user_data_raw           = var.user_data_raw
   user_data               = var.user_data_base64
   cam_role_name           = var.cam_role_name
@@ -34,6 +34,10 @@ resource "tencentcloud_instance" "instance" {
   cdh_host_id          = var.cdh_host_id
 
   placement_group_id = local.create_placement_group ? tencentcloud_placement_group.this[0].id : var.placement_group_id
+
+  disable_monitor_service = !var.monitoring
+  disable_security_service   = var.disable_security_service
+  disable_automation_service = var.disable_automation_service
 
   tags = var.tags
 }
