@@ -14,7 +14,7 @@ data "tencentcloud_instance_types" "these" {
     for_each = { for k, v in var.instance_type_filters : k => v if v != null && v != [] }
     content {
       name   = filter.key
-      values = filter.value
+      values = tolist([filter.value])
     }
   }
   cpu_core_count   = var.cpu_core_count
