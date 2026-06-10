@@ -63,6 +63,7 @@ resource "tencentcloud_instance" "cvm_instance" {
   disable_automation_service = var.disable_automation_service
 
   private_ip = var.private_ip
+  tags = var.tags
 
   dynamic "data_disks" {
     for_each = var.data_disks
