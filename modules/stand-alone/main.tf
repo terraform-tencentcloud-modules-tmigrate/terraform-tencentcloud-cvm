@@ -44,6 +44,8 @@ resource "tencentcloud_instance" "cvm_instance" {
   instance_type              = var.instance_type == null ? data.tencentcloud_instance_types.these.instance_types[0].instance_type : var.instance_type
   system_disk_type           = var.system_disk_type
   system_disk_size           = var.system_disk_size
+  system_disk_encrypt        = var.system_disk_encrypt
+  system_disk_kms_key_id     = var.system_disk_kms_key_id
   orderly_security_groups    = var.security_group_ids
   key_ids                    = var.key_ids
   password                   = var.password
