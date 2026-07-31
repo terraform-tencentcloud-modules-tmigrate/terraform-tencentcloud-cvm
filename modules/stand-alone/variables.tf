@@ -91,6 +91,18 @@ variable "system_disk_size" {
   default     = 50
 }
 
+variable "system_disk_encrypt" {
+  description = "Whether the system disk is encrypted. Valid values: true (encrypted), false (not encrypted). Default value: false. ForceNew."
+  type        = bool
+  default     = null
+}
+
+variable "system_disk_kms_key_id" {
+  description = "Custom KMS key ID for system disk encryption. ForceNew."
+  type        = string
+  default     = null
+}
+
 variable "allocate_public_ip" {
   description = "Associate a public IP address with an instance in a VPC or Classic. Boolean value, Default is false."
   default     = false
