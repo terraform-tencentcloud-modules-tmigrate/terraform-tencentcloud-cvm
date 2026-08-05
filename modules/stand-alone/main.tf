@@ -10,6 +10,8 @@ data "tencentcloud_images" "this" {
 }
 
 data "tencentcloud_instance_types" "these" {
+  count = var.instance_type == null ? 1 : 0
+
   dynamic "filter" {
     for_each = { for k, v in var.instance_type_filters : k => v if v != null && v != [] }
     content {
@@ -41,7 +43,7 @@ resource "tencentcloud_instance" "cvm_instance" {
   hostname                   = var.hostname == null ? var.instance_name : var.hostname
   availability_zone          = var.availability_zone
   image_id                   = data.tencentcloud_images.this.images[0].image_id
-  instance_type              = var.instance_type == null ? data.tencentcloud_instance_types.these.instance_types[0].instance_type : var.instance_type
+  instance_type              = var.instance_type == null ? data.tencentcloud_instance_types.these[0].instance_types[0].instance_type : var.instance_type
   system_disk_type           = var.system_disk_type
   system_disk_size           = var.system_disk_size
   system_disk_encrypt        = var.system_disk_encrypt
